@@ -1,7 +1,8 @@
-# E80-AUV
-Arduino project for the Teensy microcontroller used for the HMC E80 AUV
+# E80-ASV ST44
+Arduino project for the Teensy microcontroller used for the HMC E80 AUV.
+This repository contains code modified for Section 4's Team 4. We will be implementing two ASVs that communicate via Bluetooth.
 
-COPY THIS LIBRARIES FOLDER INTO THE ARDUINO FOLDER -- IT DOES NOTHING ANYWHERE ELSE
+# Below are descriptions of the basic functions in this repository
 
 ### LOOP_INTERVAL, LOOP_OFFSET, lastLoopTime
 These variables control when each set of functions is called by the main loop.  They come up in the loopTime() function included in most of the libraries.  The loop interval controls how often the functions are called, and the loop offset decides where in the loop this call happens.
@@ -91,3 +92,5 @@ This library allows for time of flight testing to be easily integrated into defa
 Vai Viswanathan (vviswanathan@hmc.edu),
 *         based on code written by Aaron Lutzker
 Eyassu Shimelis (eshimelis@hmc.edu),
+
+Extra code added by Reynaldo Farias-Zorilla, Henry Limm, Greg Murphy, and Andrew Pham
