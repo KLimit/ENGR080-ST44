@@ -84,8 +84,9 @@ void Logger::init(void) {
 bool Logger::log(void){
 	// record data from sources
 	size_t idx = 0;
-	unsigned char buffer[BYTES_PER_BLOCK];
+	unsigned char buffer[BYTES_PER_BLOCK][BYTES_PER_BLOCK]; //edited
 	for(size_t i = 0; i < num_datasources; ++i) {
+		//idx is a buffer
 		idx = sources[i]->writeDataBytes(buffer, idx);
 		if (idx >= BYTES_PER_BLOCK) {
 			printer.printMessage("Too much data per log. Increase BYTES_PER_BLOCK or reduce data", 2);
