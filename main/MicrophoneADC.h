@@ -19,7 +19,7 @@
  */
 
 #define NUM_PINS 2
-
+#define BUFFER_SIZE 2048
 #define ADC_LOOP_INTERVAL 100 // ms
 #define ADC_LOOP_OFFSET 0 // ms  I have ignored this part of the code because it sucks
 

@@ -27,7 +27,8 @@ MicrophoneADC mic;
 
 
 // Logger
-Logger logger;
+Logger generalLogger;  // gps, imu, etc.
+Logger micLogger;  // microphone analog and time ONLY
 bool keepLogging = true;
 
 // Printer
@@ -59,10 +60,10 @@ void setup() {
 
   /* Keep track of time */
   printer.printMessage("Starting the microphone", 10);
-  
+
   mic.updateSample();
   logger.log();
-  
+
   printer.printMessage("Data recorded!")
 }
 
@@ -88,3 +89,15 @@ void loop() {
 
 }
 
+
+void sampleMic() {
+	// eventually will be latency time + expected travel time + pulse time +
+	// headspace
+	micLogger.init();
+	int sampleLength = 2000;
+	int startTime = millis();
+	while (loopTime <= sampleLength) {
+		mic.updateSample();
+		micLogger.log(); // can't do this it takes too long
+	}
+}

@@ -8,7 +8,7 @@
 // buffered logging
 // number of 512B blocks in the log file
 #define FILE_BLOCK_COUNT 8192 // should last over 10 min
-#define BYTES_PER_BLOCK 2048 //changed from 256
+#define BYTES_PER_BLOCK 2048*2+1 //changed from 256
 // number of blocks in the buffer
 #define BUFFER_BLOCK_COUNT 5 // Is this even necessary?
 #define MAX_NUM_DATASOURCES 10
