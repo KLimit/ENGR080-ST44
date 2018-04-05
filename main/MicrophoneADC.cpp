@@ -9,14 +9,23 @@ MicrophoneADC::MicrophoneADC(void)
 {}
 
 
+
+/*
+The idea of this function is to take 256 samples of data in a single buffer before writing.
+Each sample may be identified by a time in milliseconds, as well as its analogRead value, which should be a value in
+between 0 to 255 volts.
+*/
 void MicrophoneADC::updateSample(int i, int j)
 {
     //Edit this line below-- get correct pin, should be array size 1
   const int pinmap[NUM_PINS] = {14,15,21,23,24,25,26}; // see pin map in MicrophoneADC.h
   
 //   Creates a buffer array with the first node being time, the second node being the analog value.
-  sample[0][i] = millis();
-  sample[1][j] = analogRead(pinmap);
+  for(int j = 0; j < 256; j++){
+    
+    sample[0][i] = millis();
+    sample[1][i] = analogRead(pinmap);
+  }
 }
 
 void MicrophoneADC::printSample(void)
@@ -41,6 +50,8 @@ size_t MicrophoneADC::writeDataBytes(unsigned char * buffer, size_t idx)
   return idx + NUM_PINS*sizeof(int);
 }
 
+
+//This function is currently not being used. 
 bool MicrophoneADC::loopTime(int loopStartTime) {
   int currentTime = millis();
   if (lastLoopTime == -1) {

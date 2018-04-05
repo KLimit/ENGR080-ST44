@@ -47,26 +47,23 @@ void setup() {
 
   /* Initialize the Logger */
   logger.include(&mic);
-  logger.include(&gps);
-  logger.include(&state_estimator);
-  logger.include(&motorDriver);
   logger.init();
 
-  /* Initialise the sensors */
-  imu.init();
+
 
   mySerial.begin(9600);
-  gps.init(&GPS);
 
-  /* Initialize motor pins */
-  motorDriver.init();
 
   /* Done initializing, turn on LED */
   led.init();
 
   /* Keep track of time */
-  printer.printMessage("Starting main loop", 10);
-  loopStartTime = millis();
+  printer.printMessage("Starting the microphone", 10);
+  
+  mic.updateSample();
+  logger.log();
+  
+  printer.printMessage("Data recorded!")
 }
 
 
@@ -80,14 +77,14 @@ void loop() {
 
 
   // uses the LED library to flash LED -- use this as a template for new libraries!
-  if (led.loopTime(loopStartTime)) {
-    led.flashLED();
-  }
+  // if (led.loopTime(loopStartTime)) {
+  //   led.flashLED();
+  // }
 
-  while (logger.loopTime(loopStartTime) && keepLogging) {
-    mic.updateSample();
-    keepLogging = logger.log();
-  }
+  // while (logger.loopTime(loopStartTime) && keepLogging) {
+  //   mic.updateSample();
+  //   keepLogging = logger.log();
+  // }
 
 }
 
