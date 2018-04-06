@@ -24,7 +24,7 @@
 #define ADC_LOOP_INTERVAL 100 // ms
 #define ADC_LOOP_OFFSET 0 // ms  I have ignored this part of the code because it sucks
 
-class MicrophoneADC : public DataSource
+class MicrophoneADC : public DataSource("time, voltage, envelopeStart", "unsigned long, unsigned char, unsigned char")
 {
 public:
   ADCSampler(void);
