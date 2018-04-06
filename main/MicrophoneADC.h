@@ -19,7 +19,8 @@
  */
 
 #define NUM_PINS 2
-#define BUFFER_SIZE 2048
+#define BUFFER_SIZE 40960 //stores 5000 unsigned longs and 5000 unsigned chars
+#define NUM_SAMPLES 8192
 #define ADC_LOOP_INTERVAL 100 // ms
 #define ADC_LOOP_OFFSET 0 // ms  I have ignored this part of the code because it sucks
 
@@ -29,7 +30,9 @@ public:
   ADCSampler(void);
 
   // Managing state
-  int sample [NUM_PINS];
+  unsigned long times [NUM_SAMPLES];
+  unsigned char analog [NUM_SAMPLES];
+  unsigned long envelope;
   void updateSample(void);
   void printSample(void);
 

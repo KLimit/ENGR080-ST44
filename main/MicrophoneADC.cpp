@@ -19,35 +19,44 @@ void MicrophoneADC::updateSample()
 {
     //Edit this line below-- get correct pin, should be array size 1
   const int pinmap[NUM_PINS] = {14,15,21,23,24,25,26}; // see pin map in MicrophoneADC.h
-
+  const int micPin = 14;
+  const int envelopePin = 15;
+  bool envelopeTriggered = false;
 //   Creates a buffer array with the first node being time, the second node being the analog value.
-  for(int i = 0; i < 256; i++){
+  for(int i = 0; i < NUM_SAMPLES; i++){
 
-    sample[0][i] = millis();
-    sample[1][i] = analogRead(pinmap);
+    times[i] = micros(); //micros() should return an unsigned long
+    analog[i] = (unsigned char) analogRead(pinmap);
+
+    int high = analogRead(envelopePin);
+    if(high >150 && envelopeTriggered == false){
+      envelope = micros();
+      envelopeTriggered = true;
+    } 
   }
 }
 
-void MicrophoneADC::printSample(void)
-{
-  String printString = "ADC:";
-  printString += " ";
-  printString += String(sample[1]);
-  printer.printValue(0, printString);
-}
+
+//How do i even write this for my thing
+// void MicrophoneADC::printSample(void)
+// {
+//   String printString = "ADC:";
+//   printString += " ";
+//   printString += String(sample[1]);
+//   printer.printValue(0, printString);
+// }
 
 
 // This writes data into an input buffer array.
-size_t MicrophoneADC::writeDataBytes(unsigned char * buffer, size_t idx)
+void MicrophoneADC::writeDataBytes(unsigned long * timeBuffer, unsigned char * analogBuffer)
 {
-  int * data_slot = (int *) &buffer[idx];
-  int j = 0;  // index
-  bufferSize = 256;
-  for (int i=0; i<bufferSize; i++) {
-    data_slot[0][i] = sample[0][i];
-    data_slot[1][i] = sample[1][i];
+  unsigned long * data_slot1 = (unsigned long *) &timeBuffer[0];
+  unsigned char * data_slot2 = (unsigned char *) &analogBuffer[0];
+  for (int i=0; i< NUM_SAMPLES; i++) {
+    data_slot1[i] = times[i];
+    data_slot2[i] = analog[i];
   }
-  return idx + BUFFER_SIZE;
+  // return idx + BUFFER_SIZE;
 }
 
 
